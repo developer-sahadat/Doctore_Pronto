@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.navbar_title {
+  margin-left: 40px;
+}
+.navbar_title_text {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+}
+.nav_link {
+  color: #000;
+  margin: 5px;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+}
+.nav_link.active {
+  background-color: black;
+  color: white;
+}

@@ -3,9 +3,44 @@ import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
+  const menuItems = (
+    <>
+      <li>
+        <NavLink className="nav_link" to="/">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav_link" to="/about">
+          About
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav_link" to="/appointment">
+          Appointment
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav_link" to="/reviews">
+          Reviews
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav_link" to="/contact-us">
+          Contact Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav_link" to="/login">
+          Login
+        </NavLink>
+      </li>
+    </>
+  );
+
   return (
     <div className="container">
-      <div class="navbar  bg-base-100">
+      <div class="navbar  ">
         <div class="navbar-start">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -28,36 +63,7 @@ const Header = () => {
               tabindex="0"
               class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <NavLink className="nav_link" to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav_link" to="/about">
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav_link" to="/appointment">
-                  Appointment
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav_link" to="/reviews">
-                  Reviews
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav_link" to="/contact-us">
-                  Contact Us
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav_link" to="/login">
-                  Login
-                </NavLink>
-              </li>
+              {menuItems}
             </ul>
           </div>
           <Link to="/" className="navbar_title">
@@ -65,38 +71,7 @@ const Header = () => {
           </Link>
         </div>
         <div class="navbar-end hidden lg:flex">
-          <ul class="menu menu-horizontal p-0 navigation_link">
-            <li>
-              <NavLink className="nav_link" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav_link" to="/about">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav_link" to="/appointment">
-                Appointment
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav_link" to="/reviews">
-                Reviews
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav_link" to="/contact-us">
-                Contact Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav_link" to="/login">
-                Login
-              </NavLink>
-            </li>
-          </ul>
+          <ul class="menu menu-horizontal p-0 navigation_link">{menuItems}</ul>
         </div>
       </div>
     </div>

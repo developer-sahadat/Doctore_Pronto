@@ -9,6 +9,7 @@ const HomeContact = () => {
         className="hero py-20"
         style={{
           backgroundImage: `url(${appointment})`,
+          backgroundAttachment: "fixed",
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>

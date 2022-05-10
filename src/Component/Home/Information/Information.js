@@ -3,8 +3,8 @@ import "./Information.css";
 
 const Information = () => {
   return (
-    <div className="container px-15 mb-5 mx-auto">
-      <div className="grid  lg:grid-cols-3  sm:grid-cols-1  md:grid-cols-2 gap-4">
+    <div className="px-10 md:px-20 mb-5 mx-auto">
+      <div className="grid  lg:grid-cols-3  sm:grid-cols-1  md:grid-cols-2 gap-3">
         <div className="text-white rounded-lg p-10  bg-gradient-to-r  from-secondary   to-primary">
           <div className="flex items-center">
             <div className="mr-5">

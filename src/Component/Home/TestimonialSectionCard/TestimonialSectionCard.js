@@ -4,8 +4,8 @@ const TestimonialSectionCard = ({ testimonial }) => {
   const { name, location, img, description } = testimonial;
   return (
     <div>
-      <div class="card w-96  shadow-2xl">
-        <div class="card-body">
+      <div className="card w-96  shadow-2xl">
+        <div className="card-body">
           <p>{description}</p>
           <div className="mt-3 flex justify-start items-center">
             <div className="">

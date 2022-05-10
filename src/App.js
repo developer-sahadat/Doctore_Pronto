@@ -3,6 +3,7 @@ import Home from "./Component/Home/Home/Home";
 import About from "./Component/Pages/About/About";
 import ContactUs from "./Component/Pages/ContactUs/ContactUs";
 import Reviews from "./Component/Pages/Reviews/Reviews";
+import Footer from "./Component/Shear/Footer/Footer";
 import Header from "./Component/Shear/Header/Header";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/contact-us" element={<ContactUs />} />
       </Routes>
+      <Footer />
     </>
   );
 }

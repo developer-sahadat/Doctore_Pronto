@@ -2,6 +2,7 @@ import React from "react";
 import Appointment from "../Appointment/Appointment";
 import Banner from "../Banner/Banner";
 import Exceptional from "../ExceptionalSection/Exceptional";
+import HomeContact from "../HomeContact/HomeContact";
 import Information from "../Information/Information";
 import Services from "../Services/Services";
 import Testimonial from "../Testimonial/Testimonial";
@@ -17,6 +18,7 @@ const Home = () => {
       <Appointment />
       <Testimonial />
       <TestimonialSection />
+      <HomeContact />
     </>
   );
 };

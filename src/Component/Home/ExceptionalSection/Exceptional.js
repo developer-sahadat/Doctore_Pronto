@@ -24,7 +24,7 @@ const Exceptional = () => {
               publishing packages and web page
             </p>
             <div className="mt-5">
-              <Button />
+              <Button> Get Started</Button>
             </div>
           </div>
         </div>

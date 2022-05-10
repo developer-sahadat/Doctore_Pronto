@@ -9,6 +9,7 @@ const Appointment = () => {
       <div className="appointment_container ">
         <div className="flex items-center px-20">
           <img
+            alt=""
             src={doctor}
             style={{ marginTop: "-100px" }}
             className="max-w-lg bg-transparent hidden lg:block rounded-lg "

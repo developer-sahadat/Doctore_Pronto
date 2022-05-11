@@ -4,8 +4,8 @@ const Service = ({ service }) => {
   const { title, img, description } = service;
   return (
     <div>
-      <div className="card w-96 bg-base-100 shadow-2xl">
-        <figure className="px-10 pt-10">
+      <div className="card w-full	 lg:max-w-lg bg-base-100 shadow-2xl">
+        <figure className=" p-5 lg:px-10 lg:pt-10">
           <img src={img} alt="Shoes" className="rounded-xl" />
         </figure>
         <div className="card-body items-center text-center">

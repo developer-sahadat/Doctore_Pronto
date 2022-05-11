@@ -16,7 +16,9 @@ const HomeContact = () => {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h3 className="mb-2 text-xl text-secondary">Contact Us</h3>
-            <h3 className="mb-10 text-3xl font-bold">Stay connected with us</h3>
+            <h3 className="mb-10 text-3xl text-white font-bold">
+              Stay connected with us
+            </h3>
             <form>
               <input
                 type="text"

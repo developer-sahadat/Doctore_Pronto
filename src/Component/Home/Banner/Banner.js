@@ -8,7 +8,11 @@ const Banner = () => {
     <div>
       <div className="hero min-h-screen banner-container px-10">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <img src={chair} className="max-w-lg rounded-lg shadow-2xl" />
+          <img
+            alt=""
+            src={chair}
+            className="max-w-sm md:max-w-lg rounded-lg shadow-2xl"
+          />
           <div>
             <h1 className="text-5xl font-bold leading-tight">
               Your New Smile Starts <br /> Here

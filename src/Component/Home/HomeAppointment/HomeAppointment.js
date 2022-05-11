@@ -5,9 +5,9 @@ import Button from "../../Shear/Button/Button";
 
 const Appointment = () => {
   return (
-    <div className=" py-10">
+    <div className=" py-20 my-20">
       <div className="appointment_container ">
-        <div className="flex items-center px-20">
+        <div className="flex items-center lg:px-20">
           <img
             alt=""
             src={doctor}

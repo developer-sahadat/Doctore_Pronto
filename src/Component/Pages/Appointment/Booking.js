@@ -3,9 +3,11 @@ import React from "react";
 const Booking = ({ booking, setAppointmentData }) => {
   const { name, space } = booking;
   return (
-    <div class="card lg:max-w-lg p-7  bg-base-100 shadow-2xl">
-      <div class="card-body">
-        <h2 class=" text-xl text-secondary font-bold text-center">{name}</h2>
+    <div className="card lg:max-w-lg p-7  bg-base-100 shadow-2xl">
+      <div className="card-body">
+        <h2 className=" text-xl text-secondary font-bold text-center">
+          {name}
+        </h2>
         <p className="mt-1 font-medium">
           {space.length ? (
             <span>{space[0]}</span>
@@ -14,12 +16,12 @@ const Booking = ({ booking, setAppointmentData }) => {
           )}{" "}
         </p>
         <p> {space.length} SPACES AVAILABLE</p>
-        <div class="card-actions justify-center mt-3">
+        <div className="card-actions justify-center mt-3">
           <label
             onClick={() => setAppointmentData(booking)}
             disabled={space.length === 0}
             for="booking_modal"
-            class="btn text-white  bg-gradient-to-r from-secondary to-primary modal-button"
+            className="btn text-white  bg-gradient-to-r from-secondary to-primary modal-button"
           >
             Book Appointment
           </label>

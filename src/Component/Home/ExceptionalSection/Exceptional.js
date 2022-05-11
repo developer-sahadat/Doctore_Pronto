@@ -8,8 +8,9 @@ const Exceptional = () => {
       <div className="hero min-h-screen px-20">
         <div className="hero-content flex-col lg:flex-row">
           <img
+            alt=""
             src={treatment}
-            className="max-w-sm ml-10 rounded-lg shadow-2xl"
+            className="lg:max-w-sm  ml-10 rounded-lg shadow-2xl"
           />
           <div className="pl-20">
             <h1 className="text-5xl leading-tight font-bold">

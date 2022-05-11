@@ -7,6 +7,7 @@ import Login from "./Component/Pages/Login/Login";
 import Reviews from "./Component/Pages/Reviews/Reviews";
 import SignUp from "./Component/Pages/SignUp/SignUp";
 import Header from "./Component/Shear/Header/Header";
+import RequireAuth from "./RequireAuth/RequireAuth";
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/appointment" element={<Appointment />}></Route>
+        <Route
+          path="/appointment"
+          element={
+            <RequireAuth>
+              <Appointment />
+            </RequireAuth>
+          }
+        />
         <Route path="/login" element={<Login />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
       </Routes>

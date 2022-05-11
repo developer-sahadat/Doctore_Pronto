@@ -1,14 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import googleIcon from "../../../assets/icons/google.png";
+import auth from "../../../FirebaseInit/Init";
+import Loading from "../../Shear/Loading/Loading";
 
 const Login = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googlError] =
+    useSignInWithGoogle(auth);
+  let from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user || googleUser) {
+      navigate(from, { replace: true });
+    }
+  }, [googleUser, user, from, navigate]);
+
+  if (loading || googleLoading) {
+    return <Loading />;
+  }
+  let errorMessage;
+  if (error || googlError) {
+    errorMessage = (
+      <p className="text-red-500 text-center">
+        {error?.message || googlError?.message}
+      </p>
+    );
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    signInWithEmailAndPassword(email, password);
+  };
+
   return (
     <section className="min-h-screen flex justify-center items-center">
       <div className="shadow-2xl rounded-2xl p-10">
         <h1 className="text-center font-medium text-2xl mb-6">Login</h1>
-        <form>
-          <label for="Email" className="font-medium">
+        {errorMessage}
+        <form onSubmit={submitHandler}>
+          <label htmlFor="Email" className="font-medium">
             Email
           </label>
           <br />
@@ -16,18 +58,20 @@ const Login = () => {
           <input
             type="email"
             name="email"
+            ref={emailRef}
             placeholder="Email"
-            class="input input-bordered w-full mt-1 mb-4"
+            className="input input-bordered w-full mt-1 mb-4"
           />
-          <label for="password" className="font-medium">
+          <label htmlFor="password" className="font-medium">
             Password
           </label>
 
           <input
             type="text"
+            ref={passwordRef}
             name="password"
             placeholder="Type here"
-            class="input input-bordered w-full mb-1 "
+            className="input input-bordered w-full mb-1 "
           />
           <p className="mb-5 text-sm font-medium cursor-pointer">
             Forgot Password ?
@@ -42,13 +86,16 @@ const Login = () => {
             </Link>
           </p>
         </form>
-        <div class="flex w-full items-center justify-center">
-          <div class="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
-          <div class="divider divider-horizontal font-medium">OR</div>
-          <div class="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
+        <div className="flex w-full items-center justify-center">
+          <div className="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
+          <div className="divider divider-horizontal font-medium">OR</div>
+          <div className="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
         </div>
         <div>
-          <button className="w-full border py-3 border-accent mt-3  rounded-2xl flex justify-center items-center font-medium">
+          <button
+            onClick={() => signInWithGoogle()}
+            className="w-full border py-3 border-accent mt-3  rounded-2xl flex justify-center items-center font-medium"
+          >
             <img
               className="mr-3"
               style={{ width: "30px" }}

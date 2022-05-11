@@ -1,14 +1,57 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../../../assets/icons/google.png";
+import auth from "../../../FirebaseInit/Init";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
+import Loading from "../../Shear/Loading/Loading";
 
 const SignUp = () => {
+  let navigate = useNavigate();
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const [signInWithGoogle, googleUser, googleLoading, googlError] =
+    useSignInWithGoogle(auth);
+
+  const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
+
+  if (user || googleUser) {
+    navigate("/");
+  }
+  if (loading || googleLoading || updating) {
+    return <Loading />;
+  }
+  let errorMessage;
+  if (error || googlError || UpdateError) {
+    errorMessage = (
+      <p className="text-red-500 text-center">
+        {error?.message || googlError?.message}
+      </p>
+    );
+  }
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const name = event.target.name.value;
+    const password = event.target.password.value;
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: name });
+
+    event.target.reset();
+  };
   return (
     <section className="min-h-screen flex justify-center items-center">
       <div className="shadow-2xl rounded-2xl p-10">
         <h1 className="text-center font-medium text-2xl mb-6">Sing Up</h1>
-        <form>
-          <label for="Email" className="font-medium">
+        {errorMessage}
+        <form onSubmit={submitHandler}>
+          <label htmlFor="Email" className="font-medium">
             Name
           </label>
           <br />
@@ -17,10 +60,10 @@ const SignUp = () => {
             type="text"
             name="name"
             placeholder="Name"
-            class="input input-bordered w-full mt-1 mb-4"
+            className="input input-bordered w-full mt-1 mb-4"
           />
 
-          <label for="Email" className="font-medium">
+          <label htmlFor="Email" className="font-medium">
             Email
           </label>
           <br />
@@ -29,9 +72,9 @@ const SignUp = () => {
             type="email"
             name="email"
             placeholder="Email"
-            class="input input-bordered w-full mt-1 mb-4"
+            className="input input-bordered w-full mt-1 mb-4"
           />
-          <label for="password" className="font-medium">
+          <label htmlFor="password" className="font-medium">
             Password
           </label>
 
@@ -39,11 +82,11 @@ const SignUp = () => {
             type="text"
             name="password"
             placeholder="Type here"
-            class="input input-bordered w-full mb-1 "
+            className="input input-bordered w-full mb-1 "
           />
 
           <button className="w-full mt-5 bg-accent text-white py-3 rounded-2xl text-xl font-medium">
-            Login
+            Sign Up
           </button>
           <p className="mt-3 text-sm text-center font-medium">
             already have an account?
@@ -52,13 +95,16 @@ const SignUp = () => {
             </Link>
           </p>
         </form>
-        <div class="flex w-full items-center justify-center">
-          <div class="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
-          <div class="divider divider-horizontal font-medium">OR</div>
-          <div class="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
+        <div className="flex w-full items-center justify-center">
+          <div className="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
+          <div className="divider divider-horizontal font-medium">OR</div>
+          <div className="grid h-px flex-grow card bg-slate-400 rounded-box place-items-center"></div>
         </div>
         <div>
-          <button className="w-full border py-3 border-accent mt-3  rounded-2xl flex justify-center items-center font-medium">
+          <button
+            onClick={() => signInWithGoogle()}
+            className="w-full border py-3 border-accent mt-3  rounded-2xl flex justify-center items-center font-medium"
+          >
             <img
               className="mr-3"
               style={{ width: "30px" }}

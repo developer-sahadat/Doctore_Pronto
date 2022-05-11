@@ -20,7 +20,7 @@ const Booking = ({ booking, setAppointmentData }) => {
           <label
             onClick={() => setAppointmentData(booking)}
             disabled={space.length === 0}
-            for="booking_modal"
+            htmlFor="booking_modal"
             className="btn text-white  bg-gradient-to-r from-secondary to-primary modal-button"
           >
             Book Appointment

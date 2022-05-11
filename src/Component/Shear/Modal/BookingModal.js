@@ -39,7 +39,7 @@ const BookingModal = ({ appointment, selected, setAppointmentData }) => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
-            for="booking_modal"
+            htmlFor="booking_modal"
             className="btn bg-black btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
@@ -83,7 +83,7 @@ const BookingModal = ({ appointment, selected, setAppointmentData }) => {
               className="input input-bordered w-full max-w-xl mb-3"
             />
             <div className="modal-action">
-              <button for="booking_modal" className="btn w-full bg-black">
+              <button htmlFor="booking_modal" className="btn w-full bg-black">
                 Submit
               </button>
             </div>

@@ -1,8 +1,16 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink } from "react-router-dom";
+import auth from "../../../FirebaseInit/Init";
+import Loading from "../Loading/Loading";
 import "./Header.css";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  if (loading) {
+    return <Loading />;
+  }
   const menuItems = (
     <>
       <li>
@@ -27,13 +35,19 @@ const Header = () => {
       </li>
       <li>
         <NavLink className="nav_link" to="/contact-us">
-          Contact Us
+          Contact
         </NavLink>
       </li>
       <li>
-        <NavLink className="nav_link" to="/login">
-          Login
-        </NavLink>
+        {user ? (
+          <button className="nav_link" onClick={() => signOut(auth)}>
+            Sign Out
+          </button>
+        ) : (
+          <NavLink className="nav_link" to="/login">
+            Login
+          </NavLink>
+        )}
       </li>
     </>
   );

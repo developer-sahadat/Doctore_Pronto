@@ -1,6 +1,19 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import auth from "../../../FirebaseInit/Init";
+import Loading from "../Loading/Loading";
 
-const BookingModal = ({ appointment, selected, setAppointmentData }) => {
+const BookingModal = ({
+  appointment,
+  selected,
+  setAppointmentData,
+  refetch,
+}) => {
+  const [user, loading] = useAuthState(auth);
+  if (loading) {
+    return <Loading />;
+  }
   const { name, space } = appointment;
 
   const submitHandler = (event) => {
@@ -11,11 +24,12 @@ const BookingModal = ({ appointment, selected, setAppointmentData }) => {
     const date = event.target.date.value;
     const number = event.target.number.value;
     const email = event.target.email.value;
-    console.log(time, name, date, number, email);
+    const treatment = event.target.treatment.value;
 
     fetch("http://localhost:5000/booking", {
       method: "POST",
       body: JSON.stringify({
+        treatment,
         name,
         number,
         email,
@@ -27,10 +41,16 @@ const BookingModal = ({ appointment, selected, setAppointmentData }) => {
       },
     })
       .then((response) => response.json())
-      .then((result) => console.log(result));
-
-    setAppointmentData(null);
-    event.target.reset();
+      .then((result) => {
+        if (result.success) {
+          toast(`Appointment is set, ${selected} at ${time}`);
+        } else {
+          toast.error(`Already have an appointment, ${result.booking.date}`);
+        }
+        refetch();
+        setAppointmentData(null);
+        // event.target.reset();
+      });
   };
 
   return (
@@ -77,8 +97,19 @@ const BookingModal = ({ appointment, selected, setAppointmentData }) => {
               className="input input-bordered w-full max-w-xl mb-3"
             />
             <input
+              type="text"
+              name="treatment"
+              value={name}
+              readOnly
+              disabled
+              className="input input-bordered w-full max-w-xl mb-3"
+            />
+            <input
               type="Email"
               placeholder="Email"
+              value={user?.email}
+              readOnly
+              disabled
               name="email"
               className="input input-bordered w-full max-w-xl mb-3"
             />

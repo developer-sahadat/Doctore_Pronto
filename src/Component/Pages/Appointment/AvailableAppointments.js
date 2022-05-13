@@ -1,17 +1,27 @@
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import Loading from "../../Shear/Loading/Loading";
 import BookingModal from "../../Shear/Modal/BookingModal";
 import Booking from "./Booking";
 
 const AvailableAppointments = ({ selected }) => {
-  const [booking, setBooking] = useState([]);
   const [appointmentData, setAppointmentData] = useState(null);
+  const date = format(selected, "PP");
 
-  useEffect(() => {
-    fetch("http://localhost:5000/appointment")
-      .then((res) => res.json())
-      .then((data) => setBooking(data));
-  }, []);
+  const {
+    data: booking,
+    isLoading,
+    refetch,
+  } = useQuery(["available", date], () =>
+    fetch(`http://localhost:5000/available?date=${date}`).then((res) =>
+      res.json()
+    )
+  );
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h3 className="pt-10 pb-20 text-center text-secondary font-bold">
@@ -19,7 +29,7 @@ const AvailableAppointments = ({ selected }) => {
       </h3>
 
       <div className="grid px-10  lg:grid-cols-3 text-center  md:grid-cols-2  sm:grid-cols-1 gap-5">
-        {booking.map((book) => (
+        {booking?.map((book) => (
           <Booking
             setAppointmentData={setAppointmentData}
             key={book._id}
@@ -32,6 +42,7 @@ const AvailableAppointments = ({ selected }) => {
           selected={format(selected, "PP")}
           appointment={appointmentData}
           setAppointmentData={setAppointmentData}
+          refetch={refetch}
         />
       )}
     </div>

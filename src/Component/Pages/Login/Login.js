@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import {
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -17,6 +18,8 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googlError] =
     useSignInWithGoogle(auth);
+  const [sendPasswordResetEmail, sending, ResetError] =
+    useSendPasswordResetEmail(auth);
   let from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
@@ -25,14 +28,14 @@ const Login = () => {
     }
   }, [googleUser, user, from, navigate]);
 
-  if (loading || googleLoading) {
+  if (loading || googleLoading || sending) {
     return <Loading />;
   }
   let errorMessage;
-  if (error || googlError) {
+  if (error || googlError || ResetError) {
     errorMessage = (
       <p className="text-red-500 text-center">
-        {error?.message || googlError?.message}
+        {error?.message || googlError?.message || ResetError?.message}
       </p>
     );
   }
@@ -73,7 +76,12 @@ const Login = () => {
             placeholder="Type here"
             className="input input-bordered w-full mb-1 "
           />
-          <p className="mb-5 text-sm font-medium cursor-pointer">
+          <p
+            onClick={async () =>
+              await sendPasswordResetEmail(emailRef.current.value)
+            }
+            className="mb-5 text-sm font-medium cursor-pointer"
+          >
             Forgot Password ?
           </p>
           <button className="w-full bg-accent text-white py-3 rounded-2xl text-xl font-medium">

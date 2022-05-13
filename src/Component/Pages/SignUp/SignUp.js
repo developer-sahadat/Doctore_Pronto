@@ -13,7 +13,7 @@ const SignUp = () => {
   let navigate = useNavigate();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
   const [signInWithGoogle, googleUser, googleLoading, googlError] =
     useSignInWithGoogle(auth);

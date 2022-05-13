@@ -39,6 +39,13 @@ const Header = () => {
         </NavLink>
       </li>
       <li>
+        {user && (
+          <NavLink className="nav_link" to="/dashboard">
+            Dashboard
+          </NavLink>
+        )}
+      </li>
+      <li>
         {user ? (
           <button className="nav_link" onClick={() => signOut(auth)}>
             Sign Out
@@ -55,7 +62,10 @@ const Header = () => {
   return (
     <div className="container">
       <div className="navbar  ">
-        <div className="navbar-start">
+        <div className="navbar-start ">
+          <Link to="/" className="navbar_title">
+            <h5 className="navbar_title_text">Doctor Pronto</h5>
+          </Link>
           <div className="dropdown">
             <label tabIndex="0" className="btn btn-ghost lg:hidden">
               <svg
@@ -75,16 +85,21 @@ const Header = () => {
             </label>
             <ul
               tabIndex="0"
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box"
             >
               {menuItems}
             </ul>
           </div>
-          <Link to="/" className="navbar_title">
-            <h5 className="navbar_title_text">Doctor Pronto</h5>
-          </Link>
+          <div className="navbar-end">
+            <label
+              for="my-drawer-2"
+              class="btn btn-primary drawer-button lg:hidden"
+            >
+              Open drawer
+            </label>
+          </div>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end hidden lg:flex w-full">
           <ul className="menu menu-horizontal p-0 navigation_link">
             {menuItems}
           </ul>

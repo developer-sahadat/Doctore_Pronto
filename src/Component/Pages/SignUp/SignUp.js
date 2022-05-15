@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../../../assets/icons/google.png";
 import auth from "../../../FirebaseInit/Init";
@@ -8,6 +8,7 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import Loading from "../../Shear/Loading/Loading";
+import useToken from "../../../Hook/useToken";
 
 const SignUp = () => {
   let navigate = useNavigate();
@@ -20,9 +21,14 @@ const SignUp = () => {
 
   const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
 
-  if (user || googleUser) {
-    navigate("/");
-  }
+  const [token] = useToken(user || googleUser);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/appointment");
+    }
+  }, [token, navigate]);
+
   if (loading || googleLoading || updating) {
     return <Loading />;
   }

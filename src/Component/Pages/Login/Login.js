@@ -7,6 +7,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import googleIcon from "../../../assets/icons/google.png";
 import auth from "../../../FirebaseInit/Init";
+import useToken from "../../../Hook/useToken";
 import Loading from "../../Shear/Loading/Loading";
 
 const Login = () => {
@@ -21,12 +22,12 @@ const Login = () => {
   const [sendPasswordResetEmail, sending, ResetError] =
     useSendPasswordResetEmail(auth);
   let from = location.state?.from?.pathname || "/";
-
+  const [token] = useToken(user || googleUser);
   useEffect(() => {
-    if (user || googleUser) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [googleUser, user, from, navigate]);
+  }, [from, navigate, token]);
 
   if (loading || googleLoading || sending) {
     return <Loading />;

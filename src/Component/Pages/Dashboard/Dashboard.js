@@ -1,25 +1,34 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Outlet } from "react-router-dom";
+import auth from "../../../FirebaseInit/Init";
+import useAdmin from "../../../Hook/useAdmin";
 
 const Dashboard = () => {
+  const [user] = useAuthState(auth);
+  const [admin] = useAdmin(user);
+  console.log(admin);
   return (
     <div>
-      <div class="drawer drawer-mobile">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content p-3 lg:p-10 bg-slate-100 rounded-md ">
+      <div className="drawer drawer-mobile">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content p-3 lg:p-10 bg-slate-100 rounded-md ">
           <div>
-            <h1 className="text-2xl font-bold mb-5">My Appointment</h1>
             <Outlet />
           </div>
           {/* <!-- Page content here --> */}
         </div>
-        <div class="drawer-side">
-          <label for="my-drawer-2" class="drawer-overlay"></label>
-          <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+          <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
             {/* <!-- Sidebar content here --> */}
             <li>
               <Link to="/dashboard">My Appointment</Link>
             </li>
+            <li>
+              <Link to="/dashboard/my-review">My Review</Link>
+            </li>
+            <li>{admin && <Link to="/dashboard/users">Users</Link>}</li>
           </ul>
         </div>
       </div>
